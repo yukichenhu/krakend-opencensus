@@ -1,4 +1,4 @@
-module github.com/krakendio/krakend-opencensus/v2
+module github.com/yukichenhu/krakend-opencensus/v2
 
 go 1.17
 
@@ -11,6 +11,7 @@ require (
 	contrib.go.opencensus.io/exporter/zipkin v0.0.0-20190424224031-c96617f51dc6
 	github.com/DataDog/opencensus-go-exporter-datadog v0.0.0-20191210083620-6965a1cfed68
 	github.com/aws/aws-sdk-go v1.15.31
+	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/gin-gonic/gin v1.7.7
 	github.com/kpacha/opencensus-influxdb v0.0.0-20180520162117-1b490a38de4c
 	github.com/luraproject/lura/v2 v2.0.5

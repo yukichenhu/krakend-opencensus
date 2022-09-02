@@ -2,15 +2,15 @@ package prometheus
 
 import (
 	"context"
+	"contrib.go.opencensus.io/exporter/prometheus"
 	"errors"
 	"fmt"
+	"github.com/fvbock/endless"
+	opencensus "github.com/krakendio/krakend-opencensus/v2"
+	prom "github.com/prometheus/client_golang/prometheus"
 	"log"
 	"net/http"
 	"time"
-
-	"contrib.go.opencensus.io/exporter/prometheus"
-	opencensus "github.com/krakendio/krakend-opencensus/v2"
-	prom "github.com/prometheus/client_golang/prometheus"
 )
 
 func init() {
@@ -41,10 +41,7 @@ func Exporter(ctx context.Context, cfg opencensus.Config) (*prometheus.Exporter,
 
 	router := http.NewServeMux()
 	router.Handle("/metrics", exporter)
-	server := http.Server{
-		Handler: router,
-		Addr:    fmt.Sprintf(":%d", cfg.Exporters.Prometheus.Port),
-	}
+	server := endless.NewServer(fmt.Sprintf(":%d", cfg.Exporters.Prometheus.Port), router)
 
 	go func() {
 		if serverErr := server.ListenAndServe(); serverErr != http.ErrServerClosed {
